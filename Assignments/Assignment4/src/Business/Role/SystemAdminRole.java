@@ -5,6 +5,7 @@
 package Business.Role;
 
 import Business.EcoSystem;
+import Business.Organization.Organization;
 
 import Business.UserAccount.UserAccount;
 import userinterface.SystemAdminWorkArea.SystemAdminWorkAreaJPanel;
@@ -24,7 +25,9 @@ public class SystemAdminRole extends Role{
     
 
   
-    public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, EcoSystem system) {
+    public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, 
+            Organization organization, 
+            EcoSystem system) {
         this.type = RoleType.SysAdmin;
         return new SystemAdminWorkAreaJPanel(userProcessContainer, system);
     }

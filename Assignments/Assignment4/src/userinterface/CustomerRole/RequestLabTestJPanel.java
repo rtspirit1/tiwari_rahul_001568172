@@ -5,7 +5,7 @@
 package userinterface.CustomerRole;
 
 import Business.EcoSystem;
-import Business.Organization;
+import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.LabTestWorkRequest;
 import java.awt.CardLayout;

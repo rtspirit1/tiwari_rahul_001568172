@@ -6,6 +6,8 @@
 package Business;
 
 
+import Business.Organization.OrganizationDirectory;
+import Business.Organization.Organization;
 import Business.Customer.CustomerDirectory;
 import Business.DeliveryMan.DeliveryManDirectory;
 import Business.Restaurant.RestaurantDirectory;

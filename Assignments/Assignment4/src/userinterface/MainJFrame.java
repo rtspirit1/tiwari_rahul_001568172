@@ -7,9 +7,10 @@ package userinterface;
 import Business.EcoSystem;
 import Business.DB4OUtil.DB4OUtil;
 
-import Business.Organization;
+import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -22,6 +23,7 @@ public class MainJFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainJFrame
      */
+    
     private EcoSystem system;
     private DB4OUtil dB4OUtil = DB4OUtil.getInstance();
 
@@ -30,6 +32,8 @@ public class MainJFrame extends javax.swing.JFrame {
         system = dB4OUtil.retrieveSystem();
         this.setSize(1680, 1050);
     }
+
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -128,6 +132,25 @@ public class MainJFrame extends javax.swing.JFrame {
         char[] passwordCharArray = passwordField.getPassword();
         String password = String.valueOf(passwordCharArray);
         boolean flag = false;
+        
+        UserAccount userAccount = null;
+        for(Organization organization : system.getOrganizationDirectory().getOrganizationList()){
+            userAccount = organization.getUserAccountDirectory().authenticateUser(userName, password);
+            if (userAccount != null){
+                
+                JPanel mainScreen = new MainScreen(container, userAccount, organization, system);
+                container.add("MainScreen", mainScreen);
+                CardLayout layout = (CardLayout) container.getLayout();
+                layout.next(container);
+                
+                flag = true;
+                break;
+            }
+        }
+        
+        if(flag==false){
+            JOptionPane.showMessageDialog(null, "Invalid Username/Password");
+        }
        
     }//GEN-LAST:event_loginJButtonActionPerformed
 
@@ -181,6 +204,9 @@ public class MainJFrame extends javax.swing.JFrame {
                 new MainJFrame().setVisible(true);
             }
         });
+        
+        
+        
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel container;

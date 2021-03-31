@@ -6,7 +6,7 @@ package Business.Role;
 
 import Business.EcoSystem;
 
-import Business.Organization;
+import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import userinterface.RestaurantAdminRole.AdminWorkAreaJPanel;
 import javax.swing.JPanel;
@@ -25,7 +25,9 @@ public class AdminRole extends Role{
     
 
     @Override
-    public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, EcoSystem business) {
+    public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, 
+            Organization organization, 
+            EcoSystem system) {
         this.type = RoleType.RestaurantAdmin;
         return new AdminWorkAreaJPanel(userProcessContainer);
     }
