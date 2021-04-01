@@ -10,6 +10,7 @@ import Business.Organization.OrganizationDirectory;
 import Business.Organization.Organization;
 import Business.Customer.CustomerDirectory;
 import Business.DeliveryMan.DeliveryManDirectory;
+import Business.Network.Network;
 import Business.Restaurant.RestaurantDirectory;
 import Business.Role.Role;
 import Business.Role.SystemAdminRole;
@@ -26,6 +27,8 @@ public class EcoSystem extends Organization{
     private CustomerDirectory customerDirectory;
     private DeliveryManDirectory deliveryManDirectory;
     private OrganizationDirectory organizationDirectory;
+    private ArrayList<Network> networkList;
+    
 
     public EcoSystem(RestaurantDirectory restaurantDirectory, CustomerDirectory customerDirectory, DeliveryManDirectory deliveryManDirectory) {
 
@@ -40,6 +43,23 @@ public class EcoSystem extends Organization{
         }
         return business;
     }
+
+    public ArrayList<Network> getNetworkList() {
+        return networkList;
+    }
+
+    public void setNetworkList(ArrayList<Network> networkList) {
+        this.networkList = networkList;
+    }
+    
+    
+    public Network createAndAddNetwork() {
+        Network network = new Network();
+        networkList.add(network);
+        return network;
+    }
+    
+    
     
     @Override
     public ArrayList<Role> getSupportedRole() {
@@ -49,7 +69,7 @@ public class EcoSystem extends Organization{
     }
     private EcoSystem(){
         super(null);
-       // networkList=new ArrayList<Network>();
+        networkList=new ArrayList<Network>();
        this.organizationDirectory = new OrganizationDirectory();
     }
     
@@ -57,9 +77,49 @@ public class EcoSystem extends Organization{
         return organizationDirectory;
     }
 
+    public static EcoSystem getBusiness() {
+        return business;
+    }
+
+    public static void setBusiness(EcoSystem business) {
+        EcoSystem.business = business;
+    }
+
+    public RestaurantDirectory getRestaurantDirectory() {
+        return restaurantDirectory;
+    }
+
+    public void setRestaurantDirectory(RestaurantDirectory restaurantDirectory) {
+        this.restaurantDirectory = restaurantDirectory;
+    }
+
+    public CustomerDirectory getCustomerDirectory() {
+        return customerDirectory;
+    }
+
+    public void setCustomerDirectory(CustomerDirectory customerDirectory) {
+        this.customerDirectory = customerDirectory;
+    }
+
+    public DeliveryManDirectory getDeliveryManDirectory() {
+        return deliveryManDirectory;
+    }
+
+    public void setDeliveryManDirectory(DeliveryManDirectory deliveryManDirectory) {
+        this.deliveryManDirectory = deliveryManDirectory;
+    }
+    
+    
+
     
     public boolean checkIfUserIsUnique(String userName){
-       //
+       
+       if (!this.getUserAccountDirectory().checkIfUsernameIsUnique(userName)) {
+            return false;
+        }
+        for (Network network : networkList) {
+            
+        }
        return false;
     }
 }

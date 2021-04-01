@@ -11,4 +11,34 @@ package Business.DeliveryMan;
  */
 public class DeliveryMan {
     
+    public int id;
+    public String name;
+    private static int count=1;
+
+    public DeliveryMan() {
+        
+        id=count;
+        count++;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    
+    
+    
+    
 }

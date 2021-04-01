@@ -5,10 +5,29 @@
  */
 package Business.DeliveryMan;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author harold
  */
 public class DeliveryManDirectory {
+    
+       private ArrayList<DeliveryMan> deliveryManList;
+
+    public DeliveryManDirectory() {
+        deliveryManList = new ArrayList<DeliveryMan>();
+    }
+
+    public ArrayList<DeliveryMan> getCustomerList() {
+        return deliveryManList;
+    }
+    
+    public DeliveryMan createEmployee(String name){
+        DeliveryMan deliveryMan = new DeliveryMan();
+        deliveryMan.setName(name);
+        deliveryManList.add(deliveryMan);
+        return deliveryMan;
+    }
     
 }
