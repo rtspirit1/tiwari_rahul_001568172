@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author harold
+ * @author rtspi
  */
 public class DeliveryManDirectory {
     
@@ -19,12 +19,12 @@ public class DeliveryManDirectory {
         deliveryManList = new ArrayList<DeliveryMan>();
     }
 
-    public ArrayList<DeliveryMan> getCustomerList() {
+    public ArrayList<DeliveryMan> getDeliveryManList() {
         return deliveryManList;
     }
     
-    public DeliveryMan createEmployee(String name){
-        DeliveryMan deliveryMan = new DeliveryMan();
+    public DeliveryMan createDeliveryMan(String name){
+        DeliveryMan deliveryMan = new DeliveryMan(name);
         deliveryMan.setName(name);
         deliveryManList.add(deliveryMan);
         return deliveryMan;

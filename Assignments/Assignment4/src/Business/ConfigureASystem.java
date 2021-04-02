@@ -24,22 +24,22 @@ public class ConfigureASystem {
         SystemAdminOrganization sysadminOrganization = new SystemAdminOrganization();
         system.getOrganizationDirectory().getOrganizationList().add(sysadminOrganization);
         
-        Employee employee = new Employee();
-        employee.setName("Rahul Tiwari");
-        
-        UserAccount ua = new UserAccount();
-        ua.setUsername("rtspirit");
-        ua.setPassword("super");
-        ua.setRole(new SystemAdminRole());
-        ua.setEmployee(employee);
-        
-        sysadminOrganization.getEmployeeDirectory().getEmployeeList().add(employee);
-        sysadminOrganization.getUserAccountDirectory().getUserAccountList().add(ua);
-        
-//        Employee employee = system.getEmployeeDirectory().createEmployee("RRH");
+//        Employee employee = new Employee();
+//        employee.setName("Rahul Tiwari");
 //        
-//        UserAccount ua = system.getUserAccountDirectory().createUserAccount("sysadmin", "sysadmin", employee, new SystemAdminRole());
+//        UserAccount ua = new UserAccount();
+//        ua.setUsername("rtspirit");
+//        ua.setPassword("super");
+//        ua.setRole(new SystemAdminRole());
+//        ua.setEmployee(employee);
 //        
+//        sysadminOrganization.getEmployeeDirectory().getEmployeeList().add(employee);
+//        sysadminOrganization.getUserAccountDirectory().getUserAccountList().add(ua);
+        
+        Employee employee = system.getEmployeeDirectory().createEmployee("Rahul Tiwari");
+        
+        UserAccount ua = system.getUserAccountDirectory().createUserAccount("sysadmin","sysadmin", "sysadmin", employee, new SystemAdminRole());
+        
         return system;
     }
     

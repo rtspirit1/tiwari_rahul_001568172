@@ -6,6 +6,8 @@ package userinterface;
 
 import Business.EcoSystem;
 import Business.DB4OUtil.DB4OUtil;
+import Business.Enterprise.Enterprise;
+import Business.Network.Network;
 
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
@@ -88,11 +90,10 @@ public class MainJFrame extends javax.swing.JFrame {
                         .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(userNameJTextField, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                            .addComponent(logoutJButton, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
-                            .addGap(26, 26, 26)
-                            .addComponent(loginJLabel)))
-                    .addComponent(loginJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(loginJLabel))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(logoutJButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(loginJButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -112,7 +113,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addComponent(logoutJButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(loginJLabel)
-                .addContainerGap(187, Short.MAX_VALUE))
+                .addContainerGap(203, Short.MAX_VALUE))
         );
 
         jSplitPane1.setLeftComponent(jPanel1);
@@ -133,24 +134,51 @@ public class MainJFrame extends javax.swing.JFrame {
         String password = String.valueOf(passwordCharArray);
         boolean flag = false;
         
-        UserAccount userAccount = null;
-        for(Organization organization : system.getOrganizationDirectory().getOrganizationList()){
-            userAccount = organization.getUserAccountDirectory().authenticateUser(userName, password);
-            if (userAccount != null){
-                
-                JPanel mainScreen = new MainScreen(container, userAccount, organization, system);
-                container.add("MainScreen", mainScreen);
-                CardLayout layout = (CardLayout) container.getLayout();
-                layout.next(container);
-                
-                flag = true;
-                break;
+        UserAccount userAccount = system.getUserAccountDirectory().authenticateUser(userName, password);
+        
+        Enterprise newEnterprise = null;
+        Organization newOrganization = null;
+        
+        if (userAccount == null) {
+            for (Network network : system.getNetworkList()) {
+                for (Enterprise enterprise : network.getEnterpriseDirectory().getEnterpriseList()) {
+                    userAccount = enterprise.getUserAccountDirectory().authenticateUser(userName, password);
+                    if (userAccount == null) {
+                        for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
+                            userAccount = organization.getUserAccountDirectory().authenticateUser(userName, password);
+                            if (userAccount != null) {
+                                newEnterprise = enterprise;
+                                newOrganization = organization;
+                                break;
+                            }
+                        }
+                    } else {
+                        newEnterprise = enterprise;
+                        break;
+                    }
+                    if (newOrganization != null) {
+                        break;
+                    }
+                }
+                if (newEnterprise != null) {
+                    break;
+                }
             }
         }
         
-        if(flag==false){
-            JOptionPane.showMessageDialog(null, "Invalid Username/Password");
+        if (userAccount == null) {
+            JOptionPane.showMessageDialog(null, "Invalid credentials");
+            return;
+        }else{
+            CardLayout layout = (CardLayout)container.getLayout();
+            container.add("workArea",userAccount.getRole().createWorkArea(container, userAccount, newOrganization, newEnterprise, system));
+            layout.next(container);
         }
+        
+        loginJButton.setEnabled(false);
+        logoutJButton.setEnabled(true);
+        userNameJTextField.setEnabled(false);
+        passwordField.setEnabled(false);
        
     }//GEN-LAST:event_loginJButtonActionPerformed
 

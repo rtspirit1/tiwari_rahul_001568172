@@ -69,7 +69,7 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
                 {null}
             },
             new String [] {
-                "Name"
+                "Location"
             }
         ) {
             Class[] types = new Class [] {
@@ -94,6 +94,8 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
 
         jLabel1.setText("Name");
 
+        submitJButton.setBackground(new java.awt.Color(0, 255, 255));
+        submitJButton.setForeground(new java.awt.Color(51, 0, 204));
         submitJButton.setText("Submit");
         submitJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -101,6 +103,8 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
             }
         });
 
+        backJButton.setBackground(new java.awt.Color(0, 255, 255));
+        backJButton.setForeground(new java.awt.Color(51, 0, 204));
         backJButton.setText("<< Back");
         backJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -120,12 +124,12 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
                 .addGap(30, 30, 30)
                 .addComponent(submitJButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(132, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(132, 132, 132)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(backJButton)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(110, 110, 110))
+                .addContainerGap(110, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -137,7 +141,7 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
                     .addComponent(jLabel1)
                     .addComponent(submitJButton)
                     .addComponent(nameJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
+                .addGap(74, 74, 74)
                 .addComponent(backJButton)
                 .addGap(76, 76, 76))
         );

@@ -6,6 +6,7 @@
 package userinterface;
 
 import Business.EcoSystem;
+import Business.Enterprise.Enterprise;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
@@ -20,18 +21,20 @@ public class MainScreen extends javax.swing.JPanel {
     JPanel mainWorkArea;
     UserAccount userAccount;
     Organization organization;
+    Enterprise enterprise;
     EcoSystem system;
     
     
     /**
      * Creates new form MainScreen
      */
-    public MainScreen(JPanel mainWorkArea, UserAccount userAccount, Organization organization, EcoSystem system){
+    public MainScreen(JPanel mainWorkArea, UserAccount userAccount, Organization organization,Enterprise enterprise, EcoSystem system){
         initComponents();
         this.mainWorkArea = mainWorkArea;
         this.userAccount = userAccount;
         this.organization = organization;                
         this.system = system;
+        this.enterprise=enterprise;
         
         initUserWorkArea();
     }
@@ -126,7 +129,7 @@ public class MainScreen extends javax.swing.JPanel {
         lblWelcome.setText("Welcome " + ((userAccount.getEmployee() != null) ? userAccount.getEmployee().getName() : userAccount.getUsername()) + "!");
         
         CardLayout layout = (CardLayout) workArea.getLayout();
-        workArea.add("workArea", userAccount.getRole().createWorkArea(workArea, userAccount, organization, system));
+        workArea.add("workArea", userAccount.getRole().createWorkArea(workArea, userAccount, organization,enterprise, system));
         layout.next(workArea);
     }
 }

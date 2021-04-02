@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class CustomerDirectory {
     
     private ArrayList<Customer> customerList;
+    private Customer customer;
 
     public CustomerDirectory() {
         customerList = new ArrayList<Customer>();
@@ -23,11 +24,21 @@ public class CustomerDirectory {
         return customerList;
     }
     
-    public Customer createEmployee(String name){
-        Customer customer = new Customer();
+    public Customer createCustomer(String name){
+        customer = new Customer(name);
         customer.setName(name);
         customerList.add(customer);
         return customer;
     }
+    
+    public void deleteCustomer(String username){
+        for(int i=0;i<customerList.size();i++){
+            if(customerList.get(i).getCustomerName()==username){
+                customerList.remove(i);
+            }
+        }
+    }
+    
+    
     
 }

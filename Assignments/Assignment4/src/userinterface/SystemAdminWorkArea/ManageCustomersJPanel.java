@@ -5,17 +5,50 @@
  */
 package userinterface.SystemAdminWorkArea;
 
+import Business.Customer.Customer;
+import Business.EcoSystem;
+import Business.Role.CustomerRole;
+import Business.UserAccount.UserAccount;
+import java.awt.CardLayout;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author rtspi
  */
 public class ManageCustomersJPanel extends javax.swing.JPanel {
+    
+    private JPanel userProcessContainer;
+    private EcoSystem ecosystem;
+    private UserAccount useraccount;
 
     /**
      * Creates new form ManageCustomersJPanel
      */
-    public ManageCustomersJPanel() {
+    public ManageCustomersJPanel(JPanel userProcessContainer, EcoSystem ecosystem) {
         initComponents();
+        
+        this.userProcessContainer = userProcessContainer;
+        this.ecosystem = ecosystem;
+        populateCustomerTable();
+    }
+    
+    public void populateCustomerTable(){
+        DefaultTableModel tablemodel = (DefaultTableModel) tblCustomers.getModel();
+        
+        tablemodel.setRowCount(0);
+        for(UserAccount user: ecosystem.getUserAccountDirectory().getUserAccountList()){
+            if(user.getRole().getClass().getName()=="Business.Role.CustomerRole"){
+                Object [] row = new Object[3];
+                row[0] = user.getName();
+                row[1] = user.getUsername();
+                row[2] = user.getPassword();
+                
+                tablemodel.addRow(row);
+            }
+        }
     }
 
     /**
@@ -27,19 +60,249 @@ public class ManageCustomersJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblCustomers = new javax.swing.JTable();
+        btnUpdate = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
+        txtCustomerName = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        txtCustomerUserName = new javax.swing.JTextField();
+        txtPassword = new javax.swing.JTextField();
+        btnCreateCustomer = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
+
+        tblCustomers.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Customer Name", "User Name", "Password"
+            }
+        ));
+        jScrollPane1.setViewportView(tblCustomers);
+
+        btnUpdate.setBackground(new java.awt.Color(0, 255, 255));
+        btnUpdate.setForeground(new java.awt.Color(51, 0, 204));
+        btnUpdate.setText("Edit/Update");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
+
+        btnDelete.setBackground(new java.awt.Color(0, 255, 255));
+        btnDelete.setForeground(new java.awt.Color(51, 0, 204));
+        btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
+
+        btnSave.setBackground(new java.awt.Color(0, 255, 255));
+        btnSave.setForeground(new java.awt.Color(51, 0, 204));
+        btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Customer Name");
+
+        jLabel2.setText("Username");
+
+        jLabel3.setText("Password");
+
+        txtPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPasswordActionPerformed(evt);
+            }
+        });
+
+        btnCreateCustomer.setBackground(new java.awt.Color(0, 255, 255));
+        btnCreateCustomer.setForeground(new java.awt.Color(51, 0, 204));
+        btnCreateCustomer.setText("Create Customer");
+        btnCreateCustomer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCreateCustomerActionPerformed(evt);
+            }
+        });
+
+        btnBack.setBackground(new java.awt.Color(0, 255, 255));
+        btnBack.setForeground(new java.awt.Color(51, 0, 204));
+        btnBack.setText("<<Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 580, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(76, 76, 76)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(txtCustomerName, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(btnDelete)
+                            .addGap(106, 106, 106)
+                            .addComponent(btnUpdate)
+                            .addGap(120, 120, 120)
+                            .addComponent(btnSave))
+                        .addComponent(txtCustomerUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGap(78, 78, 78)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel1)
+                                .addComponent(jLabel2)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel3)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(btnBack)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnCreateCustomer)
+                            .addGap(15, 15, 15))))
+                .addContainerGap(106, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnUpdate)
+                    .addComponent(btnSave)
+                    .addComponent(btnDelete))
+                .addGap(66, 66, 66)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCustomerName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtCustomerUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(36, 36, 36)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCreateCustomer)
+                    .addComponent(btnBack))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        // TODO add your handling code here:
+        int selectRow = tblCustomers.getSelectedRow();
+
+        if(selectRow>=0){
+            String name = (String) tblCustomers.getValueAt(selectRow, 0);
+            String username= (String) tblCustomers.getValueAt(selectRow, 1);
+            String password= (String) tblCustomers.getValueAt(selectRow, 2);
+            useraccount=ecosystem.getUserAccountDirectory().authenticateUser(username, password);
+
+            txtCustomerName.setText(name+"");
+            txtCustomerUserName.setText(username+"");
+            txtPassword.setText(password+"");
+
+            JOptionPane.showMessageDialog(null,"Please press save button to save the profile after updating the text field");
+
+        }
+        else {
+            JOptionPane.showMessageDialog(null,"Please select a row to update a profile");
+        }
+
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = tblCustomers.getSelectedRow();
+        if(selectedRow>=0){
+            int selectionButton = JOptionPane.YES_NO_OPTION;
+            int selectionResult = JOptionPane.showConfirmDialog(null, "Confirm delete?","Warning",selectionButton);
+            if(selectionResult == JOptionPane.YES_OPTION){
+                String username= (String) tblCustomers.getValueAt(selectedRow, 1);
+                String pwd= (String) tblCustomers.getValueAt(selectedRow, 2);
+                UserAccount user=ecosystem.getUserAccountDirectory().authenticateUser(username, pwd);
+
+                ecosystem.getUserAccountDirectory().deleteUserAccount(user);
+                ecosystem.getCustomerDirectory().deleteCustomer(user.getUsername());
+                populateCustomerTable();
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Please select a row to delete the account");
+        }
+
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        // TODO add your handling code here:
+        ecosystem.getUserAccountDirectory().updateUserAccount(useraccount, txtCustomerName.getText(), txtCustomerUserName.getText(), txtPassword.getText());
+        populateCustomerTable();
+
+        txtCustomerName.setText("");
+        txtCustomerUserName.setText("");
+        txtPassword.setText("");
+    }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPasswordActionPerformed
+
+    private void btnCreateCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateCustomerActionPerformed
+        // TODO add your handling code here:
+        if(ecosystem.getUserAccountDirectory().checkIfUsernameIsUnique(txtCustomerUserName.getText())){
+            UserAccount userAccount = ecosystem.getUserAccountDirectory().createUserAccount(txtCustomerName.getText(), txtCustomerUserName.getText(), txtPassword.getText(), null, new CustomerRole());
+            Customer customer = ecosystem.getCustomerDirectory().createCustomer(txtCustomerUserName.getText());
+            populateCustomerTable();
+            txtCustomerName.setText("");
+            txtCustomerUserName.setText("");
+            txtPassword.setText("");
+
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Username is not unique");
+        }
+
+    }//GEN-LAST:event_btnCreateCustomerActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        userProcessContainer.remove(this);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_btnBackActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnCreateCustomer;
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnSave;
+    private javax.swing.JButton btnUpdate;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblCustomers;
+    private javax.swing.JTextField txtCustomerName;
+    private javax.swing.JTextField txtCustomerUserName;
+    private javax.swing.JTextField txtPassword;
     // End of variables declaration//GEN-END:variables
 }

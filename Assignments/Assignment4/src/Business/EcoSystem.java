@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author MyPC1
+ * @author rtspi
  */
 public class EcoSystem extends Organization{
     
@@ -86,6 +86,9 @@ public class EcoSystem extends Organization{
     }
 
     public RestaurantDirectory getRestaurantDirectory() {
+        if(restaurantDirectory == null){
+            restaurantDirectory = new RestaurantDirectory();
+        }
         return restaurantDirectory;
     }
 
@@ -94,6 +97,10 @@ public class EcoSystem extends Organization{
     }
 
     public CustomerDirectory getCustomerDirectory() {
+        if(customerDirectory == null){
+            customerDirectory = new CustomerDirectory();
+        }
+        
         return customerDirectory;
     }
 
@@ -102,6 +109,10 @@ public class EcoSystem extends Organization{
     }
 
     public DeliveryManDirectory getDeliveryManDirectory() {
+        if(deliveryManDirectory == null){
+            deliveryManDirectory = new DeliveryManDirectory();
+        }
+        
         return deliveryManDirectory;
     }
 
