@@ -10,6 +10,7 @@ import Business.Enterprise.Enterprise;
 import Business.Enterprise.EnterpriseDirectory;
 import Business.Network.Network;
 import Business.Organization.Organization;
+import Business.UserAccount.UserAccount;
 
 import java.awt.CardLayout;
 import static java.time.Clock.system;
@@ -29,10 +30,12 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
      */
     JPanel userProcessContainer;
     EcoSystem ecosystem;
-    public SystemAdminWorkAreaJPanel(JPanel userProcessContainer,EcoSystem ecosystem) {
+    UserAccount account;
+    public SystemAdminWorkAreaJPanel(JPanel userProcessContainer,UserAccount account,EcoSystem ecosystem) {
         initComponents();
         this.userProcessContainer=userProcessContainer;
         this.ecosystem=ecosystem;
+        this.account=account;
         populateTree();
     }
     
@@ -222,14 +225,14 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnManageNetworkActionPerformed
 
     private void btnManageRestaurantsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageRestaurantsActionPerformed
-        ManageRestaurantsJPanel manageRestaurantsJPanel = new ManageRestaurantsJPanel(userProcessContainer, ecosystem);
+        ManageRestaurantsJPanel manageRestaurantsJPanel = new ManageRestaurantsJPanel(userProcessContainer,account, ecosystem);
         userProcessContainer.add("ManageRestaurantJPanel", manageRestaurantsJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnManageRestaurantsActionPerformed
 
     private void btnManageRestaurantAdminsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageRestaurantAdminsActionPerformed
-        ManageRestaurantAdmins manageRestaurantAdminJPanel = new ManageRestaurantAdmins(userProcessContainer, ecosystem);
+        ManageRestaurantAdmins manageRestaurantAdminJPanel = new ManageRestaurantAdmins(userProcessContainer,account , ecosystem);
         userProcessContainer.add("ManageRestaurantAdminJPanel", manageRestaurantAdminJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer); 

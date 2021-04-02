@@ -32,7 +32,7 @@ public class SystemAdminRole extends Role{
             Enterprise enterprise, 
             EcoSystem system) {
         this.type = RoleType.SysAdmin;
-        return new SystemAdminWorkAreaJPanel(userProcessContainer, system);
+        return new SystemAdminWorkAreaJPanel(userProcessContainer,account, system);
     }
     
 }
